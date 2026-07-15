@@ -1,31 +1,30 @@
 # Development Roadmap
 
-## Phase 1: Reference Platform Delivery
+## Architecture Baseline v1
 
-- Implement Docker Compose-based local platform
-- Build Go services: `payment-service` and `notification-service`
-- Configure Kong as external API Gateway for north-south traffic
-- Provision PostgreSQL and Kafka for local development
-- Define OpenAPI contracts for REST APIs
-- Define JSON Schema contracts for Kafka events
-- Implement `/healthz` and `/readyz` for all services
-- Build Jenkins pipeline for full local delivery flow
-- Support optional Prometheus/Grafana monitoring via compose override
+- Docker Compose-based local platform
+- Kong as the external API gateway for north-south traffic
+- PostgreSQL and Kafka as the core local platform dependencies
+- OpenAPI contracts for REST APIs
+- JSON Schema contracts for Kafka events
+- `/healthz` and `/readyz` endpoints for service health
+- Jenkins pipeline for the full local delivery flow
+- Optional Prometheus/Grafana monitoring via compose override
 
-## Phase 2: Kubernetes and Observability
+## Roadmap v2
 
-- Add Helm charts and Kubernetes manifests
-- Transition local deployment support toward Kubernetes-on-VM
-- Introduce Strimzi-managed Kafka for Kubernetes
-- Add Prometheus and Grafana as first-class observability stack
-- Add OpenTelemetry tracing support for service requests and Kafka events
-- Expand readiness checks and finer-grained metrics
+- Helm charts and Kubernetes manifests
+- Kubernetes-on-VM deployment support
+- Strimzi-managed Kafka for Kubernetes
+- Prometheus and Grafana as first-class observability stack
+- OpenTelemetry tracing support for service requests and Kafka events
+- Expanded readiness checks and finer-grained metrics
 
-## Phase 3: Platform Engineering Maturity
+## Future Enterprise Features
 
-- Add GitOps workflow for Kubernetes deployments
-- Introduce enterprise schema registry and schema evolution strategy
-- Add retry mechanisms, dead-letter queue, and notification delivery resilience
-- Add API management / gateway policy examples in Kong
-- Add developer self-service templates and component catalog
-- Enhance operational runbooks, dashboards, and platform team onboarding
+- GitOps workflow for Kubernetes deployments
+- Enterprise schema registry and schema evolution strategy
+- Retry mechanisms, dead-letter queue, and notification delivery resilience
+- API management and gateway policy capabilities in Kong
+- Developer self-service templates and component catalog
+- Operational runbooks, dashboards, and platform team onboarding

@@ -4,7 +4,7 @@
 
 - **API Gateway (Kong)**
   - External edge gateway for north-south traffic
-  - Handles routing, authentication, rate limiting, and observability hooks
+  - Routes ingress traffic to internal services
 
 - **Payment Service**
   - REST API for payment intent creation and capture
