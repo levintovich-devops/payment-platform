@@ -1,0 +1,9 @@
+_format_version: "3.0"
+services:
+  - name: payment-service
+    url: http://payment-service:8080
+    routes:
+      - name: payment-service-route
+        paths:
+          - /
+        strip_path: false
