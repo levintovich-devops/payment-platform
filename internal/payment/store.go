@@ -45,3 +45,10 @@ func (s *Store) Create(req PaymentCreateRequest) (Payment, error) {
 	s.payments[payment.ID] = payment
 	return payment, nil
 }
+
+func (s *Store) Get(id string) (Payment, bool) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+	payment, ok := s.payments[id]
+	return payment, ok
+}

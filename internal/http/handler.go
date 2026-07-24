@@ -3,6 +3,7 @@ package http
 import (
 	"encoding/json"
 	nethttp "net/http"
+	"strings"
 
 	"github.com/levintovich-devops/payment-platform/internal/payment"
 )
@@ -34,6 +35,26 @@ func NewHandler(store *payment.Store) nethttp.Handler {
 		default:
 			w.WriteHeader(nethttp.StatusMethodNotAllowed)
 		}
+	})
+	mux.HandleFunc("/payments/", func(w nethttp.ResponseWriter, r *nethttp.Request) {
+		if r.Method != nethttp.MethodGet {
+			w.WriteHeader(nethttp.StatusMethodNotAllowed)
+			return
+		}
+
+		paymentID := strings.TrimPrefix(r.URL.Path, "/payments/")
+		if paymentID == "" {
+			writeJSON(w, nethttp.StatusNotFound, payment.ErrorResponse{Code: "payment_not_found", Message: "payment not found"})
+			return
+		}
+
+		foundPayment, ok := store.Get(paymentID)
+		if !ok {
+			writeJSON(w, nethttp.StatusNotFound, payment.ErrorResponse{Code: "payment_not_found", Message: "payment not found"})
+			return
+		}
+
+		writeJSON(w, nethttp.StatusOK, foundPayment)
 	})
 	return mux
 }

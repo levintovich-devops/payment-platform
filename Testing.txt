@@ -1,0 +1,54 @@
+1. Запусти сервис
+go run ./services/payment-service/cmd/payment-service
+
+Ты должен увидеть что-то вроде:
+
+server started
+2. Проверь health endpoint
+curl -i http://localhost:8080/healthz
+
+Ожидаешь:
+
+HTTP/1.1 200 OK
+3. Проверь readiness
+curl -i http://localhost:8080/readyz
+
+Ожидаешь:
+
+HTTP/1.1 200 OK
+4. Создай платёж
+curl -i \
+-X POST http://localhost:8080/payments \
+-H "Content-Type: application/json" \
+-d '{
+  "reference":"ORDER-1001",
+  "amount":"99.99",
+  "currency":"USD"
+}'
+
+Ожидаешь:
+
+HTTP/1.1 201 Created
+JSON примерно такого вида:
+{
+  "id":"pay-...",
+  "reference":"ORDER-1001",
+  "amount":"99.99",
+  "currency":"USD",
+  "status":"INITIATED",
+  "createdAt":"...",
+  "updatedAt":"..."
+}
+5. Проверь ошибку валидации
+curl -i \
+-X POST http://localhost:8080/payments \
+-H "Content-Type: application/json" \
+-d '{}'
+
+Ожидаешь:
+
+HTTP/1.1 400 Bad Request
+
+и JSON с ошибкой.
+
+Если все четыре проверки проходят, то для текущего этапа можно считать реализацию рабочей и коммит — проверенным. Следующий этап (GET /payments/{id}) мы тоже будем проверять аналогичным образом через curl.
