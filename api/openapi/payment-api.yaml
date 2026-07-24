@@ -1,0 +1,294 @@
+openapi: 3.0.3
+info:
+  title: Payment Service API
+  version: 1.0.0
+  description: HTTP API for creating, listing, retrieving, and capturing payments.
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+paths:
+  /payments:
+    post:
+      summary: Create a payment
+      operationId: createPayment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentCreateRequest'
+            examples:
+              default:
+                value:
+                  reference: order-123
+                  amount: "100.00"
+                  currency: USD
+      responses:
+        '201':
+          description: Payment created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              examples:
+                default:
+                  value:
+                    id: pay-1234567890
+                    reference: order-123
+                    amount: "100.00"
+                    currency: USD
+                    status: INITIATED
+                    createdAt: '2026-07-24T12:34:56Z'
+                    updatedAt: '2026-07-24T12:34:56Z'
+        '400':
+          description: Invalid request body or validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                default:
+                  value:
+                    code: invalid_request
+                    message: reference, amount, and currency are required
+    get:
+      summary: List payments
+      operationId: listPayments
+      parameters:
+        - name: page
+          in: query
+          description: Page number to return. Must be a positive integer.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+            example: 1
+        - name: pageSize
+          in: query
+          description: Number of items per page. Must be between 1 and 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+            example: 20
+      responses:
+        '200':
+          description: Payment list returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentListResponse'
+              examples:
+                default:
+                  value:
+                    items:
+                      - id: pay-1234567890
+                        reference: order-123
+                        amount: "100.00"
+                        currency: USD
+                        status: INITIATED
+                        createdAt: '2026-07-24T12:34:56Z'
+                        updatedAt: '2026-07-24T12:34:56Z'
+                    page: 1
+                    pageSize: 20
+                    totalItems: 1
+                    totalPages: 1
+        '400':
+          description: Invalid pagination query parameter.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                default:
+                  value:
+                    code: invalid_request
+                    message: pageSize must be between 1 and 100
+  /payments/{id}:
+    get:
+      summary: Get a payment by ID
+      operationId: getPayment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Payment ID.
+          schema:
+            type: string
+            example: pay-1234567890
+      responses:
+        '200':
+          description: Payment returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              examples:
+                default:
+                  value:
+                    id: pay-1234567890
+                    reference: order-123
+                    amount: "100.00"
+                    currency: USD
+                    status: INITIATED
+                    createdAt: '2026-07-24T12:34:56Z'
+                    updatedAt: '2026-07-24T12:34:56Z'
+        '404':
+          description: Payment not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                default:
+                  value:
+                    code: payment_not_found
+                    message: payment not found
+  /payments/{id}/capture:
+    post:
+      summary: Capture a payment
+      operationId: capturePayment
+      description: This endpoint accepts no request body.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Payment ID.
+          schema:
+            type: string
+            example: pay-1234567890
+      responses:
+        '200':
+          description: Payment captured successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+              examples:
+                default:
+                  value:
+                    id: pay-1234567890
+                    reference: order-123
+                    amount: "100.00"
+                    currency: USD
+                    status: CAPTURED
+                    createdAt: '2026-07-24T12:34:56Z'
+                    updatedAt: '2026-07-24T12:34:56Z'
+        '404':
+          description: Payment not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                default:
+                  value:
+                    code: payment_not_found
+                    message: payment not found
+        '409':
+          description: Payment is already captured.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                default:
+                  value:
+                    code: payment_conflict
+                    message: payment already captured
+components:
+  schemas:
+    PaymentCreateRequest:
+      type: object
+      required:
+        - reference
+        - amount
+        - currency
+      properties:
+        reference:
+          type: string
+          example: order-123
+        amount:
+          type: string
+          example: "100.00"
+        currency:
+          type: string
+          example: USD
+    Payment:
+      type: object
+      required:
+        - id
+        - reference
+        - amount
+        - currency
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          example: pay-1234567890
+        reference:
+          type: string
+          example: order-123
+        amount:
+          type: string
+          example: "100.00"
+        currency:
+          type: string
+          example: USD
+        status:
+          type: string
+          example: INITIATED
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-07-24T12:34:56Z'
+        updatedAt:
+          type: string
+          format: date-time
+          example: '2026-07-24T12:34:56Z'
+    PaymentListResponse:
+      type: object
+      required:
+        - items
+        - page
+        - pageSize
+        - totalItems
+        - totalPages
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payment'
+        page:
+          type: integer
+          minimum: 1
+          example: 1
+        pageSize:
+          type: integer
+          minimum: 1
+          example: 20
+        totalItems:
+          type: integer
+          minimum: 0
+          example: 1
+        totalPages:
+          type: integer
+          minimum: 0
+          example: 1
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: request body must be valid JSON
