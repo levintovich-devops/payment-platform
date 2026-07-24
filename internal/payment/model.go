@@ -20,3 +20,11 @@ type ErrorResponse struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
 }
+
+type PaymentListResponse struct {
+	Items      []Payment `json:"items"`
+	Page       int       `json:"page"`
+	PageSize   int       `json:"pageSize"`
+	TotalItems int       `json:"totalItems"`
+	TotalPages int       `json:"totalPages"`
+}

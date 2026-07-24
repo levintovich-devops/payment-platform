@@ -18,6 +18,29 @@ func NewHandler(store *payment.Store) nethttp.Handler {
 	})
 	mux.HandleFunc("/", func(w nethttp.ResponseWriter, r *nethttp.Request) {
 		switch {
+		case r.URL.Path == "/payments" && r.Method == nethttp.MethodGet:
+			page := 1
+			pageSize := 20
+
+			if pageValue := r.URL.Query().Get("page"); pageValue != "" {
+				parsedPage, err := nethttp.ParseUint(pageValue, 10, 64)
+				if err != nil || parsedPage < 1 {
+					writeJSON(w, nethttp.StatusBadRequest, payment.ErrorResponse{Code: "invalid_request", Message: "page must be a positive integer"})
+					return
+				}
+				page = int(parsedPage)
+			}
+
+			if pageSizeValue := r.URL.Query().Get("pageSize"); pageSizeValue != "" {
+				parsedPageSize, err := nethttp.ParseUint(pageSizeValue, 10, 64)
+				if err != nil || parsedPageSize < 1 || parsedPageSize > 100 {
+					writeJSON(w, nethttp.StatusBadRequest, payment.ErrorResponse{Code: "invalid_request", Message: "pageSize must be between 1 and 100"})
+					return
+				}
+				pageSize = int(parsedPageSize)
+			}
+
+			writeJSON(w, nethttp.StatusOK, store.List(page, pageSize))
 		case r.URL.Path == "/payments":
 			switch r.Method {
 			case nethttp.MethodPost:

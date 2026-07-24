@@ -52,3 +52,23 @@ HTTP/1.1 400 Bad Request
 и JSON с ошибкой.
 
 Если все четыре проверки проходят, то для текущего этапа можно считать реализацию рабочей и коммит — проверенным. Следующий этап (GET /payments/{id}) мы тоже будем проверять аналогичным образом через curl.
+Запустить сервис.
+Создать платеж:
+curl -i \
+-X POST http://localhost:8080/payments \
+-H "Content-Type: application/json" \
+-d '{
+  "reference":"ORDER-1001",
+  "amount":"99.99",
+  "currency":"USD"
+}'
+Скопировать id из ответа.
+Проверить существующий платеж:
+curl -i http://localhost:8080/payments/<PAYMENT_ID>
+curl -i http://localhost:8080/payments/pay-1784901963075007687-1
+Ожидается: 200 OK.
+
+Проверить несуществующий платеж:
+curl -i http://localhost:8080/payments/pay-does-not-exist
+
+Ожидается: 404 Not Found.
