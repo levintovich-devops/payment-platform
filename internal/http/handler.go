@@ -62,14 +62,37 @@ func NewHandler(store *payment.Store) nethttp.Handler {
 				w.WriteHeader(nethttp.StatusMethodNotAllowed)
 			}
 		case strings.HasPrefix(r.URL.Path, "/payments/"):
-			if r.Method != nethttp.MethodGet {
-				w.WriteHeader(nethttp.StatusMethodNotAllowed)
-				return
-			}
-
 			paymentID := strings.TrimPrefix(r.URL.Path, "/payments/")
 			if paymentID == "" {
 				writeJSON(w, nethttp.StatusNotFound, payment.ErrorResponse{Code: "payment_not_found", Message: "payment not found"})
+				return
+			}
+
+			if strings.HasSuffix(paymentID, "/capture") {
+				if r.Method != nethttp.MethodPost {
+					w.WriteHeader(nethttp.StatusMethodNotAllowed)
+					return
+				}
+
+				paymentID = strings.TrimSuffix(paymentID, "/capture")
+				capturedPayment, ok, err := store.Capture(paymentID)
+				if err != nil {
+					if ok {
+						writeJSON(w, nethttp.StatusConflict, payment.ErrorResponse{Code: "payment_conflict", Message: err.Error()})
+						return
+					}
+				}
+				if !ok {
+					writeJSON(w, nethttp.StatusNotFound, payment.ErrorResponse{Code: "payment_not_found", Message: "payment not found"})
+					return
+				}
+
+				writeJSON(w, nethttp.StatusOK, capturedPayment)
+				return
+			}
+
+			if r.Method != nethttp.MethodGet {
+				w.WriteHeader(nethttp.StatusMethodNotAllowed)
 				return
 			}
 

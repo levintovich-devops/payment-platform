@@ -54,6 +54,29 @@ func (s *Store) Get(id string) (Payment, bool) {
 	return payment, ok
 }
 
+func (s *Store) Capture(id string) (Payment, bool, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+
+	payment, ok := s.payments[id]
+	if !ok {
+		return Payment{}, false, nil
+	}
+
+	if payment.Status == "CAPTURED" {
+		return Payment{}, true, errors.New("payment already captured")
+	}
+
+	if payment.Status != "INITIATED" {
+		return Payment{}, true, errors.New("payment cannot be captured")
+	}
+
+	payment.Status = "CAPTURED"
+	payment.UpdatedAt = time.Now().UTC().Format(time.RFC3339)
+	s.payments[id] = payment
+	return payment, true, nil
+}
+
 func (s *Store) List(page int, pageSize int) PaymentListResponse {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
