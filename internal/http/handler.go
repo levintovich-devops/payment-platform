@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	nethttp "net/http"
 	"strings"
+  "strconv"
 
 	"github.com/levintovich-devops/payment-platform/internal/payment"
 )
@@ -23,7 +24,7 @@ func NewHandler(store *payment.Store) nethttp.Handler {
 			pageSize := 20
 
 			if pageValue := r.URL.Query().Get("page"); pageValue != "" {
-				parsedPage, err := nethttp.ParseUint(pageValue, 10, 64)
+				parsedPage, err := strconv.ParseUint(pageValue, 10, 64)
 				if err != nil || parsedPage < 1 {
 					writeJSON(w, nethttp.StatusBadRequest, payment.ErrorResponse{Code: "invalid_request", Message: "page must be a positive integer"})
 					return
@@ -32,7 +33,7 @@ func NewHandler(store *payment.Store) nethttp.Handler {
 			}
 
 			if pageSizeValue := r.URL.Query().Get("pageSize"); pageSizeValue != "" {
-				parsedPageSize, err := nethttp.ParseUint(pageSizeValue, 10, 64)
+				parsedPageSize, err := strconv.ParseUint(pageSizeValue, 10, 64)
 				if err != nil || parsedPageSize < 1 || parsedPageSize > 100 {
 					writeJSON(w, nethttp.StatusBadRequest, payment.ErrorResponse{Code: "invalid_request", Message: "pageSize must be between 1 and 100"})
 					return
