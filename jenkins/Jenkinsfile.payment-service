@@ -14,8 +14,10 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'echo "Build payment-service"'
-                go build ./...
+                sh '''
+                    echo "Build payment-service"'
+                    go build ./...
+                '''
             }
         }
 
