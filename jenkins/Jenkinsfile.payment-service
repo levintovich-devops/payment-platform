@@ -6,13 +6,21 @@ pipeline {
     }
 
     stages {
-        stage('Shared Library Test') {
+        stage('Checkout') {
             steps {
-                echo 'Payment Service Pipeline'
+                checkout scm
+            }
+        }
 
-                script {
-                    platformPipeline()
-                }
+        stage('Build') {
+            steps {
+                sh 'echo "Build payment-service"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'echo "Run tests"'
             }
         }
     }
