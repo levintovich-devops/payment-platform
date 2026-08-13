@@ -1,0 +1,19 @@
+@Library('platform-shared-library') _
+
+pipeline {
+    agent {
+        label 'docker'
+    }
+
+    stages {
+        stage('Shared Library Test') {
+            steps {
+                echo 'Payment Service Pipeline'
+
+                script {
+                    platformPipeline()
+                }
+            }
+        }
+    }
+}
