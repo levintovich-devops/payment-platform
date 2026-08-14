@@ -32,8 +32,9 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
-                    cd services/payment-service
-                    docker build -t payment-service:local .
+                    docker build \
+                        -f services/payment-service/Dockerfile \
+                        -t payment-service:local .
                 '''
             }
         }
