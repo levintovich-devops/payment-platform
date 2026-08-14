@@ -32,6 +32,8 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh '''
+                    pwd
+                    ls -la
                     docker build -t payment-service:local .
                 '''
             }
