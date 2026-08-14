@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Payment Platform</title>
+
+    <meta
+      name="description"
+      content="Enterprise Payment Platform built with Go, Kafka, PostgreSQL, Docker, Kubernetes, Terraform and Jenkins."
+    />
+
+    <style>
+      :root {
+        --bg: #0b1220;
+        --panel: #111b2d;
+        --text: #e5eefc;
+        --muted: #99a9c4;
+        --primary: #5ac8fa;
+        --primary-strong: #2fb9ff;
+        --accent: #9ae6b4;
+        --border: rgba(154, 230, 180, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, var(--bg), #0e1728);
+        color: var(--text);
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100vh;
+      }
+
+      .shell {
+        width: min(960px, 100%);
+        padding: 32px;
+      }
+
+      .card {
+        background: rgba(17, 27, 45, 0.9);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 48px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(154, 230, 180, 0.1);
+        border: 1px solid var(--border);
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 12px;
+      }
+
+      h1 {
+        margin: 20px 0 10px;
+        font-size: clamp(2.8rem, 6vw, 4.5rem);
+      }
+
+      .subtitle {
+        margin-bottom: 24px;
+        color: var(--primary);
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      p {
+        max-width: 60ch;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .stack {
+        margin-top: 28px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .tag {
+        padding: 8px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.12);
+        background: rgba(255,255,255,.03);
+        color: var(--text);
+        font-size: .9rem;
+      }
+
+      .actions {
+        margin-top: 36px;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 14px 24px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .primary {
+        background: linear-gradient(135deg,var(--primary),var(--primary-strong));
+        color: #08131f;
+      }
+
+      .secondary {
+        color: white;
+        border: 1px solid rgba(255,255,255,.15);
+      }
+
+      footer {
+        margin-top: 40px;
+        color: var(--muted);
+        font-size: .9rem;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <main class="shell">
+
+      <section class="card">
+
+        <span class="eyebrow">Enterprise Platform</span>
+
+        <h1>Payment Platform</h1>
+
+        <div class="subtitle">
+          Event-Driven Payment Processing Platform
+        </div>
+
+        <p>
+          Portfolio project demonstrating a production-oriented platform built
+          with modern DevOps, Platform Engineering and Cloud Native practices.
+        </p>
+
+        <div class="stack">
+          <span class="tag">Go</span>
+          <span class="tag">Kafka</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Terraform</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">GitOps</span>
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="#">
+            API Documentation
+          </a>
+
+          <a class="button secondary" href="#">
+            Architecture
+          </a>
+        </div>
+
+        <footer>
+          Platform Engineering Portfolio Project
+        </footer>
+
+      </section>
+
+    </main>
+
+  </body>
+</html>
