@@ -1,7 +1,16 @@
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY services/frontend/package*.json ./
+RUN npm install
+
+COPY services/frontend/ .
+RUN npm run build
+
 FROM nginx:1.27-alpine
 
 COPY services/frontend/nginx.conf /etc/nginx/nginx.conf
-COPY services/frontend/html/ /usr/share/nginx/html/
+COPY --from=build /app/dist /usr/share/nginx/html/
 
 EXPOSE 80
 
