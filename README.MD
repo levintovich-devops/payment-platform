@@ -1,55 +1,49 @@
 # Payment Platform
 
-> Enterprise Event-Driven Payment Platform demonstrating modern Platform Engineering, AI-assisted software development, and DevOps best practices.
+> Enterprise-Oriented Payment Platform demonstrating modern Platform Engineering, Event-Driven Architecture, AI-assisted software development, and production-grade DevOps practices.
 
 ---
 
 ## Overview
 
-Payment Platform is a production-oriented engineering project demonstrating the design, implementation, and delivery of a modern payment platform.
+Payment Platform is an engineering project focused on designing and implementing a modern event-driven payment platform using enterprise architecture principles.
 
-The project showcases practical experience in Platform Engineering, Event-Driven Architecture, API Management, Enterprise CI/CD, and AI-assisted software development using GitHub Copilot.
-
-Unlike a traditional pet project, this repository follows an enterprise-oriented approach, combining architecture design, implementation, automation, and documentation.
+The project demonstrates practical experience in software architecture, Platform Engineering, API design, event-driven systems, CI/CD automation, and engineering documentation. Every architectural decision, implementation step, and supporting document is maintained in this repository to reflect a real software engineering workflow.
 
 ---
 
-## Frontend
+## Architecture
 
-![Payment Platform](docs/images/frontend.png)
-
----
-
-## Application Architecture
+### Application Architecture
 
 ![Application Architecture](docs/diagrams/application-architecture.png)
 
-The platform consists of:
+The platform currently includes:
 
-- React (Vite) Frontend
+- React frontend (Vite)
 - Nginx
 - Kong API Gateway
 - Payment Service (Go)
 - PostgreSQL
 - Apache Kafka
 - Notification Service
-
-The architecture is designed to support future integrations with external payment providers, identity providers, and messaging services.
+- Future integration points for Payment Providers, Identity Providers, and Messaging Services
 
 ---
 
-## CI/CD Delivery Pipeline
+### CI/CD Delivery Pipeline
 
 ![CI/CD Pipeline](docs/diagrams/cicd-pipeline.png)
 
-Application delivery is automated using:
+The delivery pipeline is based on:
 
-- GitHub Repository
-- Jenkins Pipeline
+- GitHub
+- Jenkins Pipelines
 - Groovy Shared Library
-- Docker Build
+- Docker
 - Docker Hub
-- Deployment Pipeline
+
+The pipeline is designed to standardize build and delivery processes while keeping deployment logic reusable through shared pipeline components.
 
 ---
 
@@ -70,114 +64,96 @@ Application delivery is automated using:
 
 - Apache Kafka
 
-### Database
-
-- PostgreSQL
-
 ### API Management
 
 - Kong API Gateway
 
+### Database
+
+- PostgreSQL
+
 ### DevOps
 
-- Docker
 - Jenkins
 - Groovy Shared Library
+- Docker
+- Docker Compose
 
 ---
 
 ## Repository Structure
 
-```
-payment-platform/
-│
-├── services/
-│   ├── frontend/
-│   └── payment-service/
-│
-├── jenkins/
-│
-├── shared-library/
-│
-├── docs/
-│   ├── diagrams/
-│   └── images/
-│
-├── docker-compose.yml
-└── README.md
-```
+| Directory | Description |
+|------------|-------------|
+| `api/` | OpenAPI specifications |
+| `cmd/` | Go application entry points |
+| `contracts/` | Event schemas and API contracts |
+| `docs/` | Architecture documentation and design artifacts |
+| `internal/` | Internal application packages |
+| `jenkins/` | Jenkins pipelines |
+| `services/frontend/` | React frontend |
+| `services/payment-service/` | Payment Service |
+| `docker-compose.yml` | Local development environment |
 
 ---
 
-## Current Status
+## Engineering Documentation
 
-### Completed
+The repository contains architecture and engineering documentation, including:
 
-- Platform Architecture
-- React Frontend
+- Architecture Overview
+- Architecture Decision Records (ADR)
+- Component Diagram
+- API Design
+- Domain Model
+- Requirements
+- Development Roadmap
+- Repository Structure
+- Shared Library Architecture
+- Handoff Summary
+
+---
+
+## Current Implementation
+
+Implemented:
+
+- Project architecture
+- React frontend
 - Go Payment Service
-- Docker Images
-- Jenkins Pipeline
-- Groovy Shared Library
-- Architecture Documentation
+- REST API foundation
+- Docker images
+- Jenkins pipelines
+- Groovy Shared Library integration
+- OpenAPI specification
+- Event schemas
+- Architecture documentation
 
-### In Progress
+In Progress:
 
-- Kafka Integration
-- Kong API Integration
-- PostgreSQL Persistence
+- Kafka integration
+- PostgreSQL persistence
+- Kong API integration
 - Notification Service
 
-### Planned
+Planned:
 
-- Kubernetes Deployment
-- Helm Charts
-- ArgoCD GitOps
-- Monitoring & Observability
-
----
-
-## Engineering Goals
-
-This project demonstrates practical implementation of:
-
-- Platform Engineering
-- Event-Driven Architecture
-- Enterprise CI/CD
-- API Gateway Pattern
-- Cloud-Native Design
-- AI-assisted Engineering
-- Modern DevOps Practices
+- Kubernetes deployment
+- Helm
+- GitOps
+- ArgoCD
+- Monitoring and Observability
 
 ---
 
 ## AI-Assisted Engineering
 
-The project is developed using an AI-assisted engineering approach.
+The project follows an AI-assisted engineering approach.
 
-GitHub Copilot is used to accelerate implementation, documentation, and CI/CD development, while all architecture decisions, technology selection, and system design remain human-driven.
-
----
-
-## Roadmap
-
-- [x] Platform Architecture
-- [x] React Frontend
-- [x] Payment Service
-- [x] Docker
-- [x] Jenkins Pipeline
-- [x] Groovy Shared Library
-- [ ] Kafka Integration
-- [ ] Kong API Gateway
-- [ ] PostgreSQL Persistence
-- [ ] Notification Service
-- [ ] Kubernetes
-- [ ] Helm
-- [ ] ArgoCD
-- [ ] Monitoring
+GitHub Copilot is used to accelerate implementation, documentation, testing, and CI/CD development, while all architecture decisions, system design, and technology selection remain human-driven.
 
 ---
 
-## Purpose
+## Project Goal
 
-This repository accompanies my professional DevOps & Platform Engineering portfolio and demonstrates architecture decisions, implementation progress, and engineering practices through an actively developed enterprise-oriented project.
+The objective of this project is to demonstrate practical implementation of modern enterprise software architecture, Platform Engineering principles, DevOps automation, and AI-assisted software development within a production-oriented payment platform.
