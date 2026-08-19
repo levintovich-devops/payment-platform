@@ -37,7 +37,7 @@ The platform currently includes:
 
 ### CI/CD Delivery Pipeline
 
-![CI/CD Pipeline](docs/diagrams/cicd-pipeline.png)
+![CI/CD Pipeline](docs/diagrams/cicd-pipelines.png)
 
 The delivery pipeline is based on:
 
