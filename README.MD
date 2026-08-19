@@ -10,6 +10,10 @@ Payment Platform is an engineering project focused on designing and implementing
 
 The project demonstrates practical experience in software architecture, Platform Engineering, API design, event-driven systems, CI/CD automation, and engineering documentation. Every architectural decision, implementation step, and supporting document is maintained in this repository to reflect a real software engineering workflow.
 
+## Frontend
+
+![Payment Platfrom UI](docs/images/frontend.png)
+
 ---
 
 ## Architecture
