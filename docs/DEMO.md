@@ -9,23 +9,25 @@ cd /path/to/payment-platform
 ## Build
 
 ```bash
-go test ./...
 go build ./...
+go test ./... -v
+docker build -f services/payment-service/Dockerfile -t payment-service:local .
+docker build -f services/frontend/Dockerfile -t levintovich/payment-platform-frontend:latest .
 ```
 
 ## Start
 
 ```bash
-go run ./cmd/payment-service
+docker compose up --build
 ```
 
-The service listens on `http://localhost:8080`.
+Kong is available at `http://localhost:8000`.
 
 ## Health Checks
 
 ```bash
-curl -i http://localhost:8080/healthz
-curl -i http://localhost:8080/readyz
+curl -i http://localhost:8000/healthz
+curl -i http://localhost:8000/readyz
 ```
 
 Both requests should return `200 OK`.
@@ -35,22 +37,15 @@ Both requests should return `200 OK`.
 Create a payment:
 
 ```bash
-curl -i -X POST http://localhost:8080/payments \
+curl -i -X POST http://localhost:8000/payments \
   -H 'Content-Type: application/json' \
   -d '{"reference":"ORDER-1001","amount":"99.99","currency":"USD"}'
 ```
 
-Copy the returned `id`, then capture the payment:
-
-```bash
-curl -i -X POST \
-  http://localhost:8080/payments/<PAYMENT_ID>/capture
-```
-
-Expected responses: `201 Created`, then `200 OK`.
+Expected response: `201 Created`.
 
 From Windows, replace `localhost` with the Linux VM IP address, for example:
 
 ```text
-http://<VM_IP>:8080/healthz
+http://<VM_IP>:8000/healthz
 ```
