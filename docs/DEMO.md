@@ -38,11 +38,7 @@ curl -i -X POST http://localhost:8000/payments \
 
 Expected response: `201 Created`.
 
-List all payments:
-
-```bash
-curl -i http://localhost:8000/payments
-```
+The current payment-service container does not provide a payment-list endpoint.
 
 Stop the deployment:
 
