@@ -3,22 +3,14 @@
 Run these commands in the Linux VM from the repository root.
 
 ```bash
-cd /path/to/payment-platform
+git clone https://github.com/levintovich-devops/payment-platform.git
+cd payment-platform
 ```
 
-## Build
+## Deploy and Start
 
 ```bash
-go build ./...
-go test ./... -v
-docker build -f services/payment-service/Dockerfile -t payment-service:local .
-docker build -f services/frontend/Dockerfile -t levintovich/payment-platform-frontend:latest .
-```
-
-## Start
-
-```bash
-docker compose up --build
+docker compose up --no-build
 ```
 
 Kong is available at `http://localhost:8000`.
@@ -43,6 +35,12 @@ curl -i -X POST http://localhost:8000/payments \
 ```
 
 Expected response: `201 Created`.
+
+Stop the deployment:
+
+```bash
+docker compose down
+```
 
 From Windows, replace `localhost` with the Linux VM IP address, for example:
 
