@@ -9,6 +9,8 @@ cd payment-platform
 
 ## Deploy and Start
 
+The payment-service image is `payment-platform-payment-service:latest`.
+
 ```bash
 docker compose up --no-build
 ```

@@ -34,7 +34,7 @@ pipeline {
                 sh '''
                     docker build \
                         -f services/payment-service/Dockerfile \
-                        -t payment-service:local .
+                        -t payment-platform-payment-service:latest .
                 '''
             }
         }
@@ -49,10 +49,10 @@ pipeline {
                     sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 	        
-                        docker tag payment-service:local \
-                            levintovich/payment-service:latest
+                        docker tag payment-platform-payment-service:latest \
+                            levintovich/payment-platform-payment-service:latest
 	        
-                        docker push levintovich/payment-service:latest	        
+                        docker push levintovich/payment-platform-payment-service:latest
                         docker logout
                     '''
                 }
