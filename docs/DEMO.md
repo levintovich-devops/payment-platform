@@ -38,6 +38,12 @@ curl -i -X POST http://localhost:8000/payments \
 
 Expected response: `201 Created`.
 
+List all payments:
+
+```bash
+curl -i http://localhost:8000/payments
+```
+
 Stop the deployment:
 
 ```bash
