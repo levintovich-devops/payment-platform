@@ -1,4 +1,13 @@
 services:
+  frontend:
+    build:
+      context: .
+      dockerfile: services/frontend/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - kong
+
   kong:
     image: kong:3.7.0
     depends_on:
