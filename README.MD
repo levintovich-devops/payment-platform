@@ -161,3 +161,12 @@ GitHub Copilot is used to accelerate implementation, documentation, testing, and
 ## Project Goal
 
 The objective of this project is to demonstrate practical implementation of modern enterprise software architecture, Platform Engineering principles, DevOps automation, and AI-assisted software development within a production-oriented payment platform.
+
+---
+
+## Demo
+
+A step-by-step guide for building, running, verifying, and demonstrating the project is available here:
+
+**➡️ [Project Demo Guide](docs/DEMO.md)**
+
