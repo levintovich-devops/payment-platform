@@ -12,7 +12,7 @@ cd payment-platform
 The payment-service image is `payment-platform-payment-service:latest`.
 
 ```bash
-docker compose up --no-build
+docker compose up
 ```
 
 Kong is available at `http://localhost:8000`.
